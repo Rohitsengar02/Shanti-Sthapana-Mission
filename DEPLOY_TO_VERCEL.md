@@ -1,27 +1,32 @@
-# How to Deploy to Vercel
+# Fixing Vercel 404 & Deploying Correctly
 
-1.  **Build the Flutter Web App:**
-    Run the following command in your terminal to build the web version of your app:
+The "404 NOT_FOUND" error happens because Vercel is looking for an `index.html` in your project root, but Flutter puts it in `build/web`.
+
+**Method 1: Deploy from your computer (Recommended)**
+
+This method is the easiest. You build the app locally and upload the result.
+
+1.  **Build the app:**
+    Run this command in your terminal:
     ```bash
-    flutter build web --release --renderer html
+    flutter build web --release
     ```
 
-2.  **Install Vercel CLI (Optional but recommended):**
-    If you don't have the Vercel CLI installed, you can install it via npm:
+2.  **Deploy the build folder:**
+    Run this specific command to deploy ONLY the `build/web` folder:
     ```bash
-    npm i -g vercel
+    npx vercel deploy build/web --prod
     ```
+    *If asked "Set up and deploy '~/.../build/web'?", answer **Y**.*
+    *If asked to link to existing project, answer **Y** and select the project.*
 
-3.  **Deploy:**
-    Run the deploy command from the root of your project:
-    ```bash
-    vercel --prod
-    ```
-    Follow the prompts to link your project.
+---
 
-**Alternative: GitHub Integration**
-1. Push your code to a GitHub repository.
-2. Go to Vercel (vercel.com) and click "Add New... > Project".
-3. Import your GitHub repository.
-4. In the "Build & Development Settings", override the "Output Directory" to `build/web`.
-5. Click "Deploy".
+**Method 2: Automatic Git Deployment (Advanced)**
+
+If you want Vercel to build automatically when you `git push`, you need to configure Vercel settings manually because Vercel doesn't support Flutter out of the box.
+
+1.  Go to your Project Settings on Vercel.
+2.  Go to **Build & Development Settings**.
+3.  Change **Output Directory** to `build/web`.
+4.  (Critical) You verify that Vercel has a way to run `flutter build`. Since Vercel doesn't have Flutter installed by default, **Method 1 is much safer and easier.**
