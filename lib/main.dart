@@ -191,10 +191,10 @@ class Header extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Text(
-                'Helpes',
+                'Shanti Sthapana Mission',
                 style: GoogleFonts.fredoka(
-                  fontSize: isMobile ? 24 : 32,
-                  fontWeight: FontWeight.bold,
+                  fontSize: isMobile ? 17 : 22,
+                  fontWeight: FontWeight.w600,
                   color: const Color(0xFF1A1A1A),
                   letterSpacing: -0.5,
                 ),
@@ -1870,7 +1870,7 @@ class EventsSection extends StatelessWidget {
           SizedBox(height: isMobile ? 40 : 40),
           if (isMobile)
             SizedBox(
-              height: 400,
+              height: 250,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -2163,7 +2163,7 @@ class TestimonialsSection extends StatelessWidget {
           SizedBox(height: isMobile ? 40 : 80),
           CarouselSlider(
             options: CarouselOptions(
-              height: isMobile ? 380 : 520,
+              height: isMobile ? 280 : 360,
               viewportFraction: isMobile ? 0.85 : 0.33,
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 4),
@@ -2616,7 +2616,7 @@ class NewsSection extends StatelessWidget {
           SizedBox(height: isMobile ? 30 : 60),
           if (isMobile)
             SizedBox(
-              height: 420,
+              height: 266,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
