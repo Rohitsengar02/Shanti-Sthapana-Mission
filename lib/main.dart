@@ -1819,7 +1819,7 @@ class EventsSection extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 0 : padding,
-        vertical: isMobile ? 50 : 80,
+        vertical: isMobile ? 50 : 0,
       ),
       child: Column(
         children: [
@@ -1916,7 +1916,7 @@ class EventsSection extends StatelessWidget {
                 ),
                 child: Image.asset(
                   image,
-                  height: isMobile ? 180 : 280,
+                  height: isMobile ? 140 : 200,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
@@ -1952,14 +1952,14 @@ class EventsSection extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: EdgeInsets.all(isMobile ? 20 : 40),
+            padding: EdgeInsets.all(isMobile ? 12 : 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
                   style: GoogleFonts.oswald(
-                    fontSize: isMobile ? 18 : 22,
+                    fontSize: isMobile ? 15 : 20,
                     fontWeight: FontWeight.bold,
                     height: 1.3,
                     color: const Color(0xFF1A1A1A),
@@ -2213,7 +2213,11 @@ class TestimonialsSection extends StatelessWidget {
       ),
       padding: EdgeInsets.all(isMobile ? 25 : 40),
       decoration: BoxDecoration(
-        color: Colors.white,
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.white, Color(0xFFE0F9E8)],
+        ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -2648,13 +2652,13 @@ class NewsSection extends StatelessWidget {
             borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
             child: Image.asset(
               img,
-              height: isMobile ? 160 : 280,
+              height: isMobile ? 130 : 180,
               width: double.infinity,
               fit: BoxFit.cover,
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(isMobile ? 20 : 35),
+            padding: EdgeInsets.all(isMobile ? 12 : 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -2733,98 +2737,162 @@ class FAQSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = Responsive.isMobile(context);
+    final padding = Responsive.horizontalPadding(context);
+    final titleSize = Responsive.fontSize(
+      context,
+      desktop: 52,
+      tablet: 42,
+      mobile: 28,
+    );
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 80),
+      padding: EdgeInsets.symmetric(
+        horizontal: padding,
+        vertical: isMobile ? 50 : 80,
+      ),
       color: const Color(0xFFF9F9F9),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: isMobile
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   'COMMON QUERIES',
                   style: GoogleFonts.poppins(
                     color: const Color(0xFF00D494),
                     fontWeight: FontWeight.bold,
-                    letterSpacing: 4,
-                    fontSize: 14,
+                    letterSpacing: 2,
+                    fontSize: 11,
                   ),
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 20),
                 Text(
-                  'Most frequently\nasked questions',
+                  'Frequently asked questions',
+                  textAlign: TextAlign.center,
                   style: GoogleFonts.oswald(
-                    fontSize: 52,
+                    fontSize: titleSize,
                     fontWeight: FontWeight.bold,
                     color: const Color(0xFF1A1A1A),
-                    height: 1.1,
+                    height: 1.2,
                   ),
                 ),
-                const SizedBox(height: 40),
-                Text(
-                  'Find answers to all your queries about our operations, donations, and impact. We believe in complete transparency.',
-                  style: GoogleFonts.poppins(
-                    color: Colors.grey[700],
-                    fontSize: 18,
-                    height: 1.8,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                const SizedBox(height: 60),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    'assets/images/about.png',
-                    height: 350,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 100),
-          Expanded(
-            flex: 3,
-            child: Column(
-              children: [
+                const SizedBox(height: 30),
                 _faqItem(
                   'How can I donate?',
                   'You can donate via our secure online portal using credit card, bank transfer, or UPI.',
+                  isMobile,
                 ),
                 _faqItem(
                   'Where does my money go?',
-                  '90% of all donations go directly to our live welfare projects. 10% is used for administration.',
+                  '90% of all donations go directly to our live welfare projects.',
+                  isMobile,
                 ),
                 _faqItem(
                   'Can I volunteer remotely?',
-                  'Yes! We have many digital volunteering opportunities available for skills like design and writing.',
+                  'Yes! We have many digital volunteering opportunities available.',
+                  isMobile,
                 ),
                 _faqItem(
                   'Is my donation tax-deductible?',
-                  'Yes, all donations to Shanti Sthapna Mission are tax-exempt under section 80G.',
+                  'Yes, all donations are tax-exempt under section 80G.',
+                  isMobile,
                 ),
-                _faqItem(
-                  'How do I track my impact?',
-                  'We send monthly progress reports and photos from the field directly to your registered email.',
+              ],
+            )
+          : Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'COMMON QUERIES',
+                        style: GoogleFonts.poppins(
+                          color: const Color(0xFF00D494),
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 4,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const SizedBox(height: 25),
+                      Text(
+                        'Most frequently\nasked questions',
+                        style: GoogleFonts.oswald(
+                          fontSize: titleSize,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF1A1A1A),
+                          height: 1.1,
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+                      Text(
+                        'Find answers to all your queries about our operations, donations, and impact.',
+                        style: GoogleFonts.poppins(
+                          color: Colors.grey[700],
+                          fontSize: 18,
+                          height: 1.8,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      const SizedBox(height: 60),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          'assets/images/about.png',
+                          height: 350,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 100),
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    children: [
+                      _faqItem(
+                        'How can I donate?',
+                        'You can donate via our secure online portal using credit card, bank transfer, or UPI.',
+                        isMobile,
+                      ),
+                      _faqItem(
+                        'Where does my money go?',
+                        '90% of all donations go directly to our live welfare projects. 10% is used for administration.',
+                        isMobile,
+                      ),
+                      _faqItem(
+                        'Can I volunteer remotely?',
+                        'Yes! We have many digital volunteering opportunities available for skills like design and writing.',
+                        isMobile,
+                      ),
+                      _faqItem(
+                        'Is my donation tax-deductible?',
+                        'Yes, all donations to Shanti Sthapna Mission are tax-exempt under section 80G.',
+                        isMobile,
+                      ),
+                      _faqItem(
+                        'How do I track my impact?',
+                        'We send monthly progress reports and photos from the field directly to your registered email.',
+                        isMobile,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
     );
   }
 
-  Widget _faqItem(String question, String answer) {
+  Widget _faqItem(String question, String answer, bool isMobile) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 25),
+      margin: EdgeInsets.only(bottom: isMobile ? 15 : 25),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -2838,35 +2906,40 @@ class FAQSection extends StatelessWidget {
           question,
           style: GoogleFonts.oswald(
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: isMobile ? 16 : 20,
             color: const Color(0xFF1A1A1A),
-            letterSpacing: 1,
+            letterSpacing: 0.5,
           ),
         ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide.none,
+        ),
+        collapsedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide.none,
+        ),
+        iconColor: const Color(0xFF00D494),
+        collapsedIconColor: Colors.grey,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(25, 10, 25, 35),
+            padding: EdgeInsets.fromLTRB(
+              isMobile ? 16 : 25,
+              10,
+              isMobile ? 16 : 25,
+              isMobile ? 20 : 35,
+            ),
             child: Text(
               answer,
               style: GoogleFonts.poppins(
                 color: const Color(0xFF636E72),
-                fontSize: 17,
-                height: 1.8,
+                fontSize: isMobile ? 14 : 17,
+                height: 1.7,
                 fontWeight: FontWeight.w300,
               ),
             ),
           ),
         ],
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-          side: BorderSide.none,
-        ),
-        collapsedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-          side: BorderSide.none,
-        ),
-        iconColor: const Color(0xFF00D494),
-        collapsedIconColor: Colors.grey,
       ),
     );
   }
